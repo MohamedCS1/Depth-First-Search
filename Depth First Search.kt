@@ -1,8 +1,11 @@
+import sun.security.provider.certpath.AdjacencyList
 import java.util.*
 
 fun main() {
 
     val adj = arrayListOf<LinkedList<Int>>()
+
+    // create AdjacencyList (Array of LinkedList)
 
     adj.add(LinkedList<Int>())
     adj[0].add(0)
@@ -10,6 +13,8 @@ fun main() {
     for (i in 1..6) {
         adj.add(LinkedList<Int>())
     }
+
+    // add edges between node
 
     adj[1].add(2)
     adj[2].add(5)
@@ -21,7 +26,11 @@ fun main() {
     adj[5].add(4)
     adj[6].add(4)
 
+    // add Array to change state of node to visit
+
     val visited = arrayOfNulls<Boolean>(adj.size +  1)
+
+    // stack to check if node have child
 
     val stack = Stack<Int>()
 
@@ -39,16 +48,18 @@ fun main() {
 
         while (stack.isNotEmpty())
         {
-            val top = stack.pop()
+            //current is top in stack
 
-            stack.push(top)
+            val current = stack.pop()
 
-            visited[top] = true
+            stack.push(current)
 
-            for (i in 0 until adj[top].size)
+            visited[current] = true
+
+            for (i in 0 until adj[current].size)
             {
                 val isDone = true
-                val child = adj[top][i]
+                val child = adj[current][i]
                 if (visited[child] == false)
                 {
                     visited[child] = true
@@ -59,7 +70,7 @@ fun main() {
                 if (isDone)
                 {
                     stack.pop()
-                    patharry.add(top)
+                    patharry.add(current)
                     break
                 }
             }
@@ -69,6 +80,6 @@ fun main() {
         patharry.forEach { print("-> $it ") }
     }
 
-    dfs(0)
+    dfs(1)
 
 }
